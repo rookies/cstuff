@@ -1,6 +1,7 @@
 TARGET = test
 SRC = test.c LinkedList.c
-OBJ = $(SRC:.c=.o)
+OBJ = $(SRC:.c=.o) ../contrib/cutest/CuTest.o
+CFLAGS = -I../contrib/
 
 $(TARGET): $(OBJ) Makefile
 	$(CC) -o $@ $(OBJ) $(LDFLAGS)
