@@ -1,43 +1,44 @@
+#define TYPE int
 #include "LinkedList.h"
 #include <stdio.h>
 #include <cutest/CuTest.h>
 
-void Test_LinkedList_init(CuTest *tc) {
-  LinkedList l;
-  LinkedList_init(&l);
+void Test_LinkedList_int_init(CuTest *tc) {
+  LinkedList_int l;
+  LinkedList_int_init(&l);
   CuAssert(tc, "head pointer not null after init", !l.head);
   CuAssert(tc, "tail pointer not null after init", !l.tail);
 }
 
-void Test_LinkedList_empty(CuTest *tc) {
-  LinkedList l;
-  LinkedList_init(&l);
-  CuAssert(tc, "list not empty after init", LinkedList_empty(&l));
-  LinkedList_push_front(&l, 1);
-  CuAssert(tc, "list empty after push", !LinkedList_empty(&l));
+void Test_LinkedList_int_empty(CuTest *tc) {
+  LinkedList_int l;
+  LinkedList_int_init(&l);
+  CuAssert(tc, "list not empty after init", LinkedList_int_empty(&l));
+  LinkedList_int_push_front(&l, 1);
+  CuAssert(tc, "list empty after push", !LinkedList_int_empty(&l));
 }
 
-void Test_LinkedList_size(CuTest *tc) {
-  LinkedList l;
+void Test_LinkedList_int_size(CuTest *tc) {
+  LinkedList_int l;
   int i;
-  LinkedList_init(&l);
-  CuAssertIntEquals(tc, 0, LinkedList_size(&l));
+  LinkedList_int_init(&l);
+  CuAssertIntEquals(tc, 0, LinkedList_int_size(&l));
   for (i=0; i < 10; ++i) {
-    LinkedList_push_front(&l, i);
-    CuAssertIntEquals(tc, i+1, LinkedList_size(&l));
+    LinkedList_int_push_front(&l, i);
+    CuAssertIntEquals(tc, i+1, LinkedList_int_size(&l));
   }
 }
 
-void Test_LinkedList_pushpopget_front(CuTest *tc) {
+void Test_LinkedList_int_pushpopget_front(CuTest *tc) {
   /* Create list & push 10 entries: */
-  LinkedList l;
+  LinkedList_int l;
   int i;
-  LinkedList_init(&l);
+  LinkedList_int_init(&l);
   for (i=0; i < 10; ++i) {
-    LinkedList_push_front(&l, i);
+    LinkedList_int_push_front(&l, i);
   }
   /* Iterate forwards: */
-  LinkedListNode *n = l.head;
+  LinkedList_int_Node *n = l.head;
   for (i=0; i < 10; ++i) {
     CuAssertPtrNotNull(tc, n);
     CuAssertIntEquals(tc, 9-i, n->data);
@@ -52,25 +53,25 @@ void Test_LinkedList_pushpopget_front(CuTest *tc) {
   }
   /* Test _get() method: */
   for (i=0; i < 10; ++i) {
-    CuAssertIntEquals(tc, 9-i, LinkedList_get(&l, i));
+    CuAssertIntEquals(tc, 9-i, LinkedList_int_get(&l, i));
   }
   /* Test _front() & _pop_front() methods: */
   for (i=0; i < 10; ++i) {
-    CuAssertIntEquals(tc, 9-i, LinkedList_front(&l));
-    CuAssertIntEquals(tc, 9-i, LinkedList_pop_front(&l));
+    CuAssertIntEquals(tc, 9-i, LinkedList_int_front(&l));
+    CuAssertIntEquals(tc, 9-i, LinkedList_int_pop_front(&l));
   }
 }
 
-void Test_LinkedList_pushpopget_back(CuTest *tc) {
+void Test_LinkedList_int_pushpopget_back(CuTest *tc) {
   /* Create list & push 10 entries: */
-  LinkedList l;
+  LinkedList_int l;
   int i;
-  LinkedList_init(&l);
+  LinkedList_int_init(&l);
   for (i=0; i < 10; ++i) {
-    LinkedList_push_back(&l, i);
+    LinkedList_int_push_back(&l, i);
   }
   /* Iterate forwards: */
-  LinkedListNode *n = l.head;
+  LinkedList_int_Node *n = l.head;
   for (i=0; i < 10; ++i) {
     CuAssertPtrNotNull(tc, n);
     CuAssertIntEquals(tc, i, n->data);
@@ -85,38 +86,38 @@ void Test_LinkedList_pushpopget_back(CuTest *tc) {
   }
   /* Test _get() method: */
   for (i=0; i < 10; ++i) {
-    CuAssertIntEquals(tc, i, LinkedList_get(&l, i));
+    CuAssertIntEquals(tc, i, LinkedList_int_get(&l, i));
   }
   /* Test _back() & _pop_back() methods: */
   for (i=0; i < 10; ++i) {
-    CuAssertIntEquals(tc, 9-i, LinkedList_back(&l));
-    CuAssertIntEquals(tc, 9-i, LinkedList_pop_back(&l));
+    CuAssertIntEquals(tc, 9-i, LinkedList_int_back(&l));
+    CuAssertIntEquals(tc, 9-i, LinkedList_int_pop_back(&l));
   }
 }
 
-void Test_LinkedList_push_mixed(CuTest *tc) {
+void Test_LinkedList_int_push_mixed(CuTest *tc) {
   /* Create list: */
-  LinkedList l;
+  LinkedList_int l;
   int i;
-  LinkedList_init(&l);
+  LinkedList_int_init(&l);
   /* Push 10..19 using _push_front(): */
   for (i=19; i >= 10; --i) {
-    LinkedList_push_front(&l, i);
+    LinkedList_int_push_front(&l, i);
   }
   /* Push 20..29 using _push_back(): */
   for (i=20; i < 30; ++i) {
-    LinkedList_push_back(&l, i);
+    LinkedList_int_push_back(&l, i);
   }
   /* Push 0..9 using _push_front(): */
   for (i=9; i >= 0; --i) {
-    LinkedList_push_front(&l, i);
+    LinkedList_int_push_front(&l, i);
   }
   /* Push 30..39 using _push_back(): */
   for (i=30; i < 40; ++i) {
-    LinkedList_push_back(&l, i);
+    LinkedList_int_push_back(&l, i);
   }
   /* Iterate forwards: */
-  LinkedListNode *n = l.head;
+  LinkedList_int_Node *n = l.head;
   for (i=0; i < 40; ++i) {
     CuAssertPtrNotNull(tc, n);
     CuAssertIntEquals(tc, i, n->data);
@@ -131,12 +132,12 @@ void Test_LinkedList_push_mixed(CuTest *tc) {
   }
 }
 
-void Test_LinkedList_insert(CuTest *tc) {
-  LinkedList l;
-  LinkedList_init(&l);
-  CuAssert(tc, "insert(0) failed", LinkedList_insert(&l, 0, 21) == 0);
-  CuAssert(tc, "insert(1) failed", LinkedList_insert(&l, 1, 42) == 0);
-  CuAssert(tc, "insert(5) should fail", LinkedList_insert(&l, 5, 73) != 0);
+void Test_LinkedList_int_insert(CuTest *tc) {
+  LinkedList_int l;
+  LinkedList_int_init(&l);
+  CuAssert(tc, "insert(0) failed", LinkedList_int_insert(&l, 0, 21) == 0);
+  CuAssert(tc, "insert(1) failed", LinkedList_int_insert(&l, 1, 42) == 0);
+  CuAssert(tc, "insert(5) should fail", LinkedList_int_insert(&l, 5, 73) != 0);
   /* fwd: */
   CuAssertPtrNotNull(tc, l.head);
   CuAssertIntEquals(tc, 21, l.head->data);
@@ -151,17 +152,17 @@ void Test_LinkedList_insert(CuTest *tc) {
   CuAssertPtrEquals(tc, NULL, l.tail->prev->prev);
 }
 
-void Test_LinkedList_erase(CuTest *tc) {
+void Test_LinkedList_int_erase(CuTest *tc) {
   /* Create & fill list: */
-  LinkedList l;
+  LinkedList_int l;
   int i;
-  LinkedList_init(&l);
+  LinkedList_int_init(&l);
   for (i=0; i < 3; ++i) {
-    LinkedList_push_back(&l, i);
+    LinkedList_int_push_back(&l, i);
   }
   /* Erase item #0: */
-  CuAssert(tc, "erase(0) failed", LinkedList_erase(&l, 0) == 0);
-  LinkedListNode *n = l.head;
+  CuAssert(tc, "erase(0) failed", LinkedList_int_erase(&l, 0) == 0);
+  LinkedList_int_Node *n = l.head;
   for (i=1; i < 3; ++i) {
     CuAssertPtrNotNull(tc, n);
     CuAssertIntEquals(tc, i, n->data);
@@ -174,7 +175,7 @@ void Test_LinkedList_erase(CuTest *tc) {
     n = n->prev;
   }
   /* Erase item #2: */
-  CuAssert(tc, "erase(2) should fail", LinkedList_erase(&l, 2) != 0);
+  CuAssert(tc, "erase(2) should fail", LinkedList_int_erase(&l, 2) != 0);
   return;
   n = l.head;
   for (i=1; i < 3; ++i) {
@@ -189,7 +190,7 @@ void Test_LinkedList_erase(CuTest *tc) {
     n = n->prev;
   }
   /* Erase item #0: */
-  CuAssert(tc, "erase(0) failed", LinkedList_erase(&l, 0) == 0);
+  CuAssert(tc, "erase(0) failed", LinkedList_int_erase(&l, 0) == 0);
   CuAssertPtrNotNull(tc, l.head);
   CuAssertIntEquals(tc, 1, l.head->data);
   CuAssertPtrNotNull(tc, l.head->next);
@@ -201,7 +202,7 @@ void Test_LinkedList_erase(CuTest *tc) {
   CuAssertIntEquals(tc, 1, l.tail->prev->data);
   CuAssertPtrEquals(tc, NULL, l.tail->prev->prev);
   /* Erase item #0: */
-  CuAssert(tc, "erase(0) failed", LinkedList_erase(&l, 0) == 0);
+  CuAssert(tc, "erase(0) failed", LinkedList_int_erase(&l, 0) == 0);
   CuAssertPtrNotNull(tc, l.head);
   CuAssertIntEquals(tc, 2, l.head->data);
   CuAssertPtrEquals(tc, NULL, l.head->next);
@@ -209,19 +210,19 @@ void Test_LinkedList_erase(CuTest *tc) {
   CuAssertIntEquals(tc, 2, l.tail->data);
   CuAssertPtrEquals(tc, NULL, l.tail->prev);
   /* Erase item #0: */
-  CuAssert(tc, "erase(0) failed", LinkedList_erase(&l, 0) == 0);
+  CuAssert(tc, "erase(0) failed", LinkedList_int_erase(&l, 0) == 0);
   CuAssertPtrEquals(tc, NULL, l.head);
   CuAssertPtrEquals(tc, NULL, l.tail);
 }
 
-void Test_LinkedList_clear(CuTest *tc) {
-  LinkedList l;
+void Test_LinkedList_int_clear(CuTest *tc) {
+  LinkedList_int l;
   int i;
-  LinkedList_init(&l);
+  LinkedList_int_init(&l);
   for (i=0; i < 10; ++i) {
-    LinkedList_push_front(&l, i);
+    LinkedList_int_push_front(&l, i);
   }
-  LinkedList_clear(&l);
+  LinkedList_int_clear(&l);
   CuAssert(tc, "head pointer not null after clear", !l.head);
   CuAssert(tc, "tail pointer not null after clear", !l.tail);
 }
@@ -229,15 +230,15 @@ void Test_LinkedList_clear(CuTest *tc) {
 int main(void) {
   CuString *output = CuStringNew();
   CuSuite *suite = CuSuiteNew();
-  SUITE_ADD_TEST(suite, Test_LinkedList_init);
-  SUITE_ADD_TEST(suite, Test_LinkedList_empty);
-  SUITE_ADD_TEST(suite, Test_LinkedList_size);
-  SUITE_ADD_TEST(suite, Test_LinkedList_pushpopget_front);
-  SUITE_ADD_TEST(suite, Test_LinkedList_pushpopget_back);
-  SUITE_ADD_TEST(suite, Test_LinkedList_push_mixed);
-  SUITE_ADD_TEST(suite, Test_LinkedList_insert);
-  SUITE_ADD_TEST(suite, Test_LinkedList_erase);
-  SUITE_ADD_TEST(suite, Test_LinkedList_clear);
+  SUITE_ADD_TEST(suite, Test_LinkedList_int_init);
+  SUITE_ADD_TEST(suite, Test_LinkedList_int_empty);
+  SUITE_ADD_TEST(suite, Test_LinkedList_int_size);
+  SUITE_ADD_TEST(suite, Test_LinkedList_int_pushpopget_front);
+  SUITE_ADD_TEST(suite, Test_LinkedList_int_pushpopget_back);
+  SUITE_ADD_TEST(suite, Test_LinkedList_int_push_mixed);
+  SUITE_ADD_TEST(suite, Test_LinkedList_int_insert);
+  SUITE_ADD_TEST(suite, Test_LinkedList_int_erase);
+  SUITE_ADD_TEST(suite, Test_LinkedList_int_clear);
 
   CuSuiteRun(suite);
   CuSuiteSummary(suite, output);

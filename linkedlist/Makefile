@@ -1,5 +1,5 @@
 TARGET = test
-SRC = test.c LinkedList.c
+SRC = test.c
 OBJ = $(SRC:.c=.o) ../contrib/cutest/CuTest.o
 CFLAGS = -I../contrib/
 
