@@ -1,6 +1,3 @@
-#ifndef _LINKEDLIST_H_
-#define _LINKEDLIST_H_
-
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -206,5 +203,3 @@ void LINKEDLIST(TYPE,_dump)(LINKEDLIST2(TYPE) *l) {
   }
   fprintf(stderr, "\n");
 }
-
-#endif //!_LINKEDLIST_H_
