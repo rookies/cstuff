@@ -86,7 +86,42 @@ void Test_LinkedList_pushpopget_back(CuTest *tc) {
   }
 }
 
-void Test_LinkedList_pushpopget_mixed(CuTest *tc) { /* TODO */ }
+void Test_LinkedList_push_mixed(CuTest *tc) {
+  /* Create list: */
+  LinkedList l;
+  int i;
+  LinkedList_init(&l);
+  /* Push 10..19 using _push_front(): */
+  for (i=19; i >= 10; --i) {
+    LinkedList_push_front(&l, i);
+  }
+  /* Push 20..29 using _push_back(): */
+  for (i=20; i < 30; ++i) {
+    LinkedList_push_back(&l, i);
+  }
+  /* Push 0..9 using _push_front(): */
+  for (i=9; i >= 0; --i) {
+    LinkedList_push_front(&l, i);
+  }
+  /* Push 30..39 using _push_back(): */
+  for (i=30; i < 40; ++i) {
+    LinkedList_push_back(&l, i);
+  }
+  /* Iterate forwards: */
+  LinkedListNode *n = l.head;
+  for (i=0; i < 40; ++i) {
+    CuAssertPtrNotNull(tc, n);
+    CuAssertIntEquals(tc, i, n->data);
+    n = n->next;
+  }
+  /* Iterate backwards: */
+  n = l.tail;
+  for (i=0; i < 40; ++i) {
+    CuAssertPtrNotNull(tc, n);
+    CuAssertIntEquals(tc, 39-i, n->data);
+    n = n->prev;
+  }
+}
 
 void Test_LinkedList_insert(CuTest *tc) { /* TODO */ }
 
@@ -100,14 +135,8 @@ void Test_LinkedList_clear(CuTest *tc) {
     LinkedList_push_front(&l, i);
   }
   LinkedList_clear(&l);
-  CuAssert(tc, "list not empty after clear", LinkedList_empty(&l));
-  CuAssertIntEquals(tc, 0, LinkedList_size(&l));
-  for (i=0; i < 10; ++i) {
-    LinkedList_push_back(&l, i);
-  }
-  LinkedList_clear(&l);
-  CuAssert(tc, "list not empty after clear", LinkedList_empty(&l));
-  CuAssertIntEquals(tc, 0, LinkedList_size(&l));
+  CuAssert(tc, "head pointer not null after clear", !l.head);
+  CuAssert(tc, "tail pointer not null after clear", !l.tail);
 }
 
 int main(void) {
@@ -118,7 +147,7 @@ int main(void) {
   SUITE_ADD_TEST(suite, Test_LinkedList_size);
   SUITE_ADD_TEST(suite, Test_LinkedList_pushpopget_front);
   SUITE_ADD_TEST(suite, Test_LinkedList_pushpopget_back);
-  SUITE_ADD_TEST(suite, Test_LinkedList_pushpopget_mixed);
+  SUITE_ADD_TEST(suite, Test_LinkedList_push_mixed);
   SUITE_ADD_TEST(suite, Test_LinkedList_insert);
   SUITE_ADD_TEST(suite, Test_LinkedList_erase);
   SUITE_ADD_TEST(suite, Test_LinkedList_clear);
@@ -127,36 +156,5 @@ int main(void) {
   CuSuiteSummary(suite, output);
   CuSuiteDetails(suite, output);
   printf("%s\n", output->buffer);
-
-  LinkedList list;
-  int i;
-  LinkedList_init(&list);
-  fprintf(stderr, "%lu\n", LinkedList_size(&list));
-  fprintf(stderr, "%d\n", LinkedList_empty(&list));
-  LinkedList_dump(&list);
-  for (i=0; i < 50; ++i) {
-    LinkedList_push_front(&list, i);
-  }
-  fprintf(stderr, "%lu\n", LinkedList_size(&list));
-  fprintf(stderr, "%d\n", LinkedList_empty(&list));
-  LinkedList_dump(&list);
-  for (i=50; i < 100; ++i) {
-    LinkedList_push_back(&list, i);
-  }
-  fprintf(stderr, "%lu\n", LinkedList_size(&list));
-  fprintf(stderr, "%d\n", LinkedList_empty(&list));
-  LinkedList_dump(&list);
-  for (i=0; i < 50; ++i) {
-    LinkedList_pop_front(&list);
-  }
-  fprintf(stderr, "%lu\n", LinkedList_size(&list));
-  fprintf(stderr, "%d\n", LinkedList_empty(&list));
-  LinkedList_dump(&list);
-  for (i=50; i < 100; ++i) {
-    LinkedList_pop_back(&list);
-  }
-  fprintf(stderr, "%lu\n", LinkedList_size(&list));
-  fprintf(stderr, "%d\n", LinkedList_empty(&list));
-  LinkedList_dump(&list);
   return 0;
 }
