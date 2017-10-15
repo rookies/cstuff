@@ -21,17 +21,20 @@ typedef struct {
   LINKEDLIST(TYPE,_Node) *tail;
 } LINKEDLIST2(TYPE);
 
+/* LinkedList_TYPE_init(LinkedList_TYPE *l) */
 /* Initialize the list, O(1) */
 void LINKEDLIST(TYPE,_init)(LINKEDLIST2(TYPE) *l) {
   l->head = NULL;
   l->tail = NULL;
 }
 
+/* LinkedList_TYPE_empty(LinkedList_TYPE *l) */
 /* Test whether the list is empty, O(1) */
 int LINKEDLIST(TYPE,_empty)(LINKEDLIST2(TYPE) *l) {
   return (l->head == NULL);
 }
 
+/* LinkedList_TYPE_size(LinkedList_TYPE *l) */
 /* Return size, O(n) */
 size_t LINKEDLIST(TYPE,_size)(LINKEDLIST2(TYPE) *l) {
   size_t res = 0;
@@ -43,18 +46,21 @@ size_t LINKEDLIST(TYPE,_size)(LINKEDLIST2(TYPE) *l) {
   return res;
 }
 
+/* LinkedList_TYPE_front(LinkedList_TYPE *l) */
 /* Access first element, O(1) */
 /* WARNING: Undefined behaviour for empty list */
 TYPE LINKEDLIST(TYPE,_front)(LINKEDLIST2(TYPE) *l) {
   return l->head->data;
 }
 
+/* LinkedList_TYPE_back(LinkedList_TYPE *l) */
 /* Access last element, O(1) */
 /* WARNING: Undefined behaviour for empty list */
 TYPE LINKEDLIST(TYPE,_back)(LINKEDLIST2(TYPE) *l) {
   return l->tail->data;
 }
 
+/* LinkedList_TYPE_get(LinkedList_TYPE *l, size_t pos) */
 /* Access element at given position, O(n) */
 /* WARNING: Undefined behaviour for invalid position */
 TYPE LINKEDLIST(TYPE,_get)(LINKEDLIST2(TYPE) *l, size_t pos) {
@@ -66,6 +72,7 @@ TYPE LINKEDLIST(TYPE,_get)(LINKEDLIST2(TYPE) *l, size_t pos) {
   return n->data;
 }
 
+/* LinkedList_TYPE_push_front(LinkedList_TYPE *l, TYPE value) */
 /* Insert element at beginning, O(1) */
 int LINKEDLIST(TYPE,_push_front)(LINKEDLIST2(TYPE) *l, TYPE value) {
   LINKEDLIST(TYPE,_Node) *n = malloc(sizeof(LINKEDLIST(TYPE,_Node)));
@@ -79,6 +86,7 @@ int LINKEDLIST(TYPE,_push_front)(LINKEDLIST2(TYPE) *l, TYPE value) {
   return 1;
 }
 
+/* LinkedList_TYPE_pop_front(LinkedList_TYPE *l) */
 /* Access first element and delete it, O(1) */
 /* WARNING: Undefined behaviour for empty list */
 TYPE LINKEDLIST(TYPE,_pop_front)(LINKEDLIST2(TYPE) *l) {
@@ -91,6 +99,7 @@ TYPE LINKEDLIST(TYPE,_pop_front)(LINKEDLIST2(TYPE) *l) {
   return i;
 }
 
+/* LinkedList_TYPE_push_back(LinkedList_TYPE *l, TYPE value) */
 /* Insert element at the end, O(1) */
 int LINKEDLIST(TYPE,_push_back)(LINKEDLIST2(TYPE) *l, TYPE value) {
   LINKEDLIST(TYPE,_Node) *n = malloc(sizeof(LINKEDLIST(TYPE,_Node)));
@@ -104,6 +113,7 @@ int LINKEDLIST(TYPE,_push_back)(LINKEDLIST2(TYPE) *l, TYPE value) {
   return 1;
 }
 
+/* LinkedList_TYPE_pop_back(LinkedList_TYPE *l) */
 /* Access last element and delete it, O(1) */
 /* WARNING: Undefined behaviour for empty list */
 TYPE LINKEDLIST(TYPE,_pop_back)(LINKEDLIST2(TYPE) *l) {
@@ -116,6 +126,7 @@ TYPE LINKEDLIST(TYPE,_pop_back)(LINKEDLIST2(TYPE) *l) {
   return i;
 }
 
+/* LinkedList_TYPE_insert(LinkedList_TYPE *l, size_t pos, TYPE value) */
 /* Insert an element, O(n) */
 int LINKEDLIST(TYPE,_insert)(LINKEDLIST2(TYPE) *l, size_t pos, TYPE value) {
   size_t i;
@@ -141,6 +152,7 @@ int LINKEDLIST(TYPE,_insert)(LINKEDLIST2(TYPE) *l, size_t pos, TYPE value) {
   return 0;
 }
 
+/* LinkedList_TYPE_erase(LinkedList_TYPE *l, size_t pos) */
 /* Erase an element, O(n) */
 int LINKEDLIST(TYPE,_erase)(LINKEDLIST2(TYPE) *l, size_t pos) {
   size_t i;
@@ -163,6 +175,7 @@ int LINKEDLIST(TYPE,_erase)(LINKEDLIST2(TYPE) *l, size_t pos) {
   return 0;
 }
 
+/* LinkedList_TYPE_clear(LinkedList_TYPE *l) */
 /* Clear content, O(n) */
 void LINKEDLIST(TYPE,_clear)(LINKEDLIST2(TYPE) *l) {
   LINKEDLIST(TYPE,_Node) *p = l->head;
@@ -176,6 +189,7 @@ void LINKEDLIST(TYPE,_clear)(LINKEDLIST2(TYPE) *l) {
   l->tail = NULL;
 }
 
+/* LinkedList_TYPE_dump(LinkedList_TYPE *l) */
 /* Dump list content to stderr, O(n) */
 void LINKEDLIST(TYPE,_dump)(LINKEDLIST2(TYPE) *l) {
   fprintf(stderr, "fwd: ");
