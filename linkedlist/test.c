@@ -50,6 +50,10 @@ void Test_LinkedList_pushpopget_front(CuTest *tc) {
     CuAssertIntEquals(tc, i, n->data);
     n = n->prev;
   }
+  /* Test _get() method: */
+  for (i=0; i < 10; ++i) {
+    CuAssertIntEquals(tc, 9-i, LinkedList_get(&l, i));
+  }
   /* Test _front() & _pop_front() methods: */
   for (i=0; i < 10; ++i) {
     CuAssertIntEquals(tc, 9-i, LinkedList_front(&l));
@@ -78,6 +82,10 @@ void Test_LinkedList_pushpopget_back(CuTest *tc) {
     CuAssertPtrNotNull(tc, n);
     CuAssertIntEquals(tc, 9-i, n->data);
     n = n->prev;
+  }
+  /* Test _get() method: */
+  for (i=0; i < 10; ++i) {
+    CuAssertIntEquals(tc, i, LinkedList_get(&l, i));
   }
   /* Test _back() & _pop_back() methods: */
   for (i=0; i < 10; ++i) {

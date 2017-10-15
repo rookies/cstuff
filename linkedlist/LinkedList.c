@@ -28,6 +28,15 @@ Item LinkedList_back(LinkedList *l) {
   return l->tail->data;
 }
 
+Item LinkedList_get(LinkedList *l, size_t pos) {
+  size_t i;
+  LinkedListNode *n = l->head;
+  for (i=0; i < pos; ++i) {
+    n = n->next;
+  }
+  return n->data;
+}
+
 int LinkedList_push_front(LinkedList *l, Item value) {
   LinkedListNode *n = malloc(sizeof(LinkedListNode));
   if (!n) return 0;
