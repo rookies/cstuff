@@ -131,9 +131,30 @@ void Test_LinkedList_push_mixed(CuTest *tc) {
   }
 }
 
-void Test_LinkedList_insert(CuTest *tc) { /* TODO */ }
+void Test_LinkedList_insert(CuTest *tc) {
+  LinkedList l;
+  LinkedList_init(&l);
+  CuAssert(tc, "insert(0) failed", LinkedList_insert(&l, 0, 21) == 0);
+  CuAssert(tc, "insert(1) failed", LinkedList_insert(&l, 1, 42) == 0);
+  CuAssert(tc, "insert(5) should fail", LinkedList_insert(&l, 5, 73) != 0);
+  /* fwd: */
+  CuAssertPtrNotNull(tc, l.head);
+  CuAssertIntEquals(tc, 21, l.head->data);
+  CuAssertPtrNotNull(tc, l.head->next);
+  CuAssertIntEquals(tc, 42, l.head->next->data);
+  CuAssertPtrEquals(tc, NULL, l.head->next->next);
+  /* bwd: */
+  CuAssertPtrNotNull(tc, l.tail);
+  CuAssertIntEquals(tc, 42, l.tail->data);
+  CuAssertPtrNotNull(tc, l.tail->prev);
+  CuAssertIntEquals(tc, 21, l.tail->prev->data);
+  CuAssertPtrEquals(tc, NULL, l.tail->prev->prev);
+}
 
-void Test_LinkedList_erase(CuTest *tc) { /* TODO */ }
+void Test_LinkedList_erase(CuTest *tc) {
+  LinkedList l;
+  /* TODO */
+}
 
 void Test_LinkedList_clear(CuTest *tc) {
   LinkedList l;

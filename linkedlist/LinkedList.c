@@ -82,7 +82,27 @@ Item LinkedList_pop_back(LinkedList *l) {
 }
 
 int LinkedList_insert(LinkedList *l, size_t pos, Item value) {
-  /* TODO */
+  size_t i;
+  LinkedListNode *n = l->head;
+  LinkedListNode *prev = NULL;
+  for (i=0; i < pos; ++i) {
+    if (!n) return 1;
+    prev = n;
+    n = n->next;
+  }
+  LinkedListNode *new = malloc(sizeof(LinkedListNode));
+  new->data = value;
+  new->prev = prev;
+  new->next = n;
+  if (prev) {
+    prev->next = new;
+  } else {
+    l->head = new;
+  };
+  if (!n) {
+    l->tail = new;
+  };
+  return 0;
 }
 
 int LinkedList_erase(LinkedList *l, size_t pos) {
