@@ -106,7 +106,24 @@ int LinkedList_insert(LinkedList *l, size_t pos, Item value) {
 }
 
 int LinkedList_erase(LinkedList *l, size_t pos) {
-  /* TODO */
+  size_t i;
+  LinkedListNode *n = l->head;
+  LinkedListNode *prev = NULL;
+  for (i=0; i < pos; ++i) {
+    if (!n || !n->next) return 1;
+    prev = n;
+    n = n->next;
+  }
+  if (prev) {
+    prev->next = n->next;
+  } else {
+    l->head = n->next;
+  };
+  if (!n->next) {
+    l->tail = prev;
+  };
+  free(n);
+  return 0;
 }
 
 void LinkedList_clear(LinkedList *l) {

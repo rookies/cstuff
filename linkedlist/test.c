@@ -152,8 +152,66 @@ void Test_LinkedList_insert(CuTest *tc) {
 }
 
 void Test_LinkedList_erase(CuTest *tc) {
+  /* Create & fill list: */
   LinkedList l;
-  /* TODO */
+  int i;
+  LinkedList_init(&l);
+  for (i=0; i < 3; ++i) {
+    LinkedList_push_back(&l, i);
+  }
+  /* Erase item #0: */
+  CuAssert(tc, "erase(0) failed", LinkedList_erase(&l, 0) == 0);
+  LinkedListNode *n = l.head;
+  for (i=1; i < 3; ++i) {
+    CuAssertPtrNotNull(tc, n);
+    CuAssertIntEquals(tc, i, n->data);
+    n = n->next;
+  }
+  n = l.tail;
+  for (i=2; i >= 1; --i) {
+    CuAssertPtrNotNull(tc, n);
+    CuAssertIntEquals(tc, i, n->data);
+    n = n->prev;
+  }
+  /* Erase item #2: */
+  CuAssert(tc, "erase(2) should fail", LinkedList_erase(&l, 2) != 0);
+  return;
+  n = l.head;
+  for (i=1; i < 3; ++i) {
+    CuAssertPtrNotNull(tc, n);
+    CuAssertIntEquals(tc, i, n->data);
+    n = n->next;
+  }
+  n = l.tail;
+  for (i=2; i >= 1; --i) {
+    CuAssertPtrNotNull(tc, n);
+    CuAssertIntEquals(tc, i, n->data);
+    n = n->prev;
+  }
+  /* Erase item #0: */
+  CuAssert(tc, "erase(0) failed", LinkedList_erase(&l, 0) == 0);
+  CuAssertPtrNotNull(tc, l.head);
+  CuAssertIntEquals(tc, 1, l.head->data);
+  CuAssertPtrNotNull(tc, l.head->next);
+  CuAssertIntEquals(tc, 2, l.head->next->data);
+  CuAssertPtrEquals(tc, NULL, l.head->next->next);
+  CuAssertPtrNotNull(tc, l.tail);
+  CuAssertIntEquals(tc, 2, l.tail->data);
+  CuAssertPtrNotNull(tc, l.tail->prev);
+  CuAssertIntEquals(tc, 1, l.tail->prev->data);
+  CuAssertPtrEquals(tc, NULL, l.tail->prev->prev);
+  /* Erase item #0: */
+  CuAssert(tc, "erase(0) failed", LinkedList_erase(&l, 0) == 0);
+  CuAssertPtrNotNull(tc, l.head);
+  CuAssertIntEquals(tc, 2, l.head->data);
+  CuAssertPtrEquals(tc, NULL, l.head->next);
+  CuAssertPtrNotNull(tc, l.tail);
+  CuAssertIntEquals(tc, 2, l.tail->data);
+  CuAssertPtrEquals(tc, NULL, l.tail->prev);
+  /* Erase item #0: */
+  CuAssert(tc, "erase(0) failed", LinkedList_erase(&l, 0) == 0);
+  CuAssertPtrEquals(tc, NULL, l.head);
+  CuAssertPtrEquals(tc, NULL, l.tail);
 }
 
 void Test_LinkedList_clear(CuTest *tc) {
